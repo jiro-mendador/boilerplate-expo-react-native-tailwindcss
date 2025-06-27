@@ -1,29 +1,23 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+// * DEFINE HERE YOUR PAGES/SCREENS
+// * SET YOUR NAVIGATIONS HERE
+// * THIS PROJECT IS USING EXPO-ROUTER AND ALL FILES UNDER ./app is considered as screen/pages
+// * ON THIS FILE YOU CAN CONTROL HOW IT ALL OF THEM WILL BE DISPLAYED
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Stack } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+// * navigate on screens/pages based on their filenames
+// * ex: index.tsx = "/" (default)
+// * ex: second-screen.tsx = "/second-screen"
+import "../global.css";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
+export default function Layout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <GestureHandlerRootView className="flex-1">
+      <SafeAreaProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
